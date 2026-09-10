@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NSE Screener — Daily Ranked Watchlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0E1217;
+    --surface: #171C24;
+    --surface-raised: #1F2530;
+    --line: #2A3038;
+    --text: #E7E5DF;
+    --text-dim: #8B93A0;
+    --gold: #C9A24B;
+    --up: #4FAE6E;
+    --down: #C0564A;
+    --neutral: #6B7280;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+
+  header {
+    border-bottom: 1px solid var(--line);
+    padding: 20px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .meta {
+    font-size: 13px;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--up);
+    box-shadow: 0 0 0 3px rgba(79,174,110,0.15);
+  }
+
+  main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 32px 64px;
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+  }
+  @media (max-width: 860px) {
+    main { grid-template-columns: 1fr; }
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .panel-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    color: var(--text-dim);
+    font-weight: 500;
+    font-size: 11px;
+    text-transform: none;
+    border-bottom: 1px solid var(--line);
+  }
+  td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: var(--surface-raised); }
+  .rank { color: var(--text-dim); width: 28px; }
+  .name { font-weight: 500; }
+  .ticker { color: var(--text-dim); font-size: 11px; }
+  .num { text-align: right; }
+  .score-bar-wrap {
+    display: flex; align-items: center; gap: 8px; justify-content: flex-end;
+  }
+  .score-bar {
+    height: 4px; width: 46px; background: var(--line); border-radius: 2px; overflow: hidden;
+  }
+  .score-bar-fill { height: 100%; background: var(--gold); }
+  .pos { color: var(--up); }
+  .neg { color: var(--down); }
+
+  .sidebar-section { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .sidebar-section:last-child { border-bottom: none; }
+  .sidebar-label { font-size: 11px; color: var(--text-dim); margin-bottom: 8px; }
+  .mood-value { font-size: 32px; font-weight: 600; }
+  .mood-desc { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  .ipo-item { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .ipo-item:last-child { border-bottom: none; }
+  .ipo-name { font-weight: 500; font-size: 13px; }
+  .ipo-detail { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .empty { color: var(--text-dim); font-size: 13px; padding: 4px 0; }
+
+  footer {
+    max-width: 1180px; margin: 0 auto; padding: 0 32px 40px;
+    font-size: 12px; color: var(--text-dim); line-height: 1.6;
+  }
+  .status-banner {
+    max-width: 1180px; margin: 20px auto 0; padding: 12px 32px;
+    font-size: 13px; color: var(--gold); display: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>NSE Screener</h1>
+  <div class="meta">
+    <span class="live-dot"></span>
+    <span id="genTime" class="mono">—</span>
+  </div>
+</header>
+
+<div class="status-banner" id="statusBanner"></div>
+
+<main>
+  <div class="panel">
+    <div class="panel-head">Ranked watchlist — score blends valuation, quality, momentum, dividend, news sentiment</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Stock</th>
+          <th class="num">P/E</th>
+          <th class="num">P/B</th>
+          <th class="num">ROE</th>
+          <th class="num">1M mom</th>
+          <th class="num">News</th>
+          <th class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody id="stockRows"></tbody>
+    </table>
+  </div>
+
+  <div>
+    <div class="panel" style="margin-bottom:20px;">
+      <div class="sidebar-section">
+        <div class="sidebar-label">Market news mood</div>
+        <div class="mood-value" id="moodValue">—</div>
+        <div class="mood-desc" id="moodDesc">Based on recent headline keywords</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">IPO watchlist</div>
+      <div id="ipoList" style="padding: 8px 20px;"></div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Educational/research tool only — not investment advice. Scores are a transparent, rule-based blend of
+  public ratios and headline sentiment; they are not predictions. Verify all data independently and consider
+  consulting a licensed financial advisor before trading.
+</footer>
+
+<script>
+  const SAMPLE_DATA = {
+    generated_at: new Date().toISOString(),
+    overall_news_sentiment: 0.4,
+    headline_count: 0,
+    stocks: [
+      {name:"Reliance Industries", ticker:"RELIANCE.NS", pe_ratio:24.1, pb_ratio:2.3, roe:0.11, momentum_1m_pct:3.2, news_sentiment:1, score:78.4},
+      {name:"TCS", ticker:"TCS.NS", pe_ratio:27.8, pb_ratio:11.2, roe:0.46, momentum_1m_pct:-1.1, news_sentiment:0, score:71.2},
+      {name:"HDFC Bank", ticker:"HDFCBANK.NS", pe_ratio:19.4, pb_ratio:2.8, roe:0.16, momentum_1m_pct:2.0, news_sentiment:2, score:69.9},
+    ],
+    ipo_watchlist: []
+  };
+
+  function fmt(n, digits=1) {
+    if (n === null || n === undefined || Number.isNaN(n)) return "—";
+    return Number(n).toFixed(digits);
+  }
+
+  function sentimentClass(s) {
+    if (s > 0) return "pos";
+    if (s < 0) return "neg";
+    return "";
+  }
+
+  function render(data) {
+    document.getElementById("genTime").textContent =
+      "Updated " + new Date(data.generated_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+
+    const maxScore = Math.max(...data.stocks.map(s => s.score || 0), 1);
+    const rows = document.getElementById("stockRows");
+    rows.innerHTML = "";
+    data.stocks
+      .slice()
+      .sort((a, b) => (b.score || 0) - (a.score || 0))
+      .forEach((s, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td class="rank mono">${i + 1}</td>
+          <td>
+            <div class="name">${s.name}</div>
+            <div class="ticker mono">${s.ticker}</div>
+          </td>
+          <td class="num mono">${fmt(s.pe_ratio)}</td>
+          <td class="num mono">${fmt(s.pb_ratio, 2)}</td>
+          <td class="num mono">${s.roe != null ? fmt(s.roe * 100) + "%" : "—"}</td>
+          <td class="num mono ${s.momentum_1m_pct > 0 ? "pos" : s.momentum_1m_pct < 0 ? "neg" : ""}">${s.momentum_1m_pct != null ? fmt(s.momentum_1m_pct) + "%" : "—"}</td>
+          <td class="num mono ${sentimentClass(s.news_sentiment)}">${s.news_sentiment > 0 ? "+" : ""}${s.news_sentiment ?? 0}</td>
+          <td class="num">
+            <div class="score-bar-wrap">
+              <span class="mono">${fmt(s.score, 1)}</span>
+              <span class="score-bar"><span class="score-bar-fill" style="width:${(s.score / maxScore) * 100}%"></span></span>
+            </div>
+          </td>
+        `;
+        rows.appendChild(tr);
+      });
+
+    const mood = data.overall_news_sentiment || 0;
+    const moodEl = document.getElementById("moodValue");
+    moodEl.textContent = (mood > 0 ? "+" : "") + mood.toFixed(2);
+    moodEl.className = "mood-value " + sentimentClass(mood);
+    document.getElementById("moodDesc").textContent =
+      `From ${data.headline_count} recent headlines · ${mood > 0.1 ? "net positive" : mood < -0.1 ? "net negative" : "mixed / neutral"}`;
+
+    const ipoList = document.getElementById("ipoList");
+    ipoList.innerHTML = "";
+    if (!data.ipo_watchlist || data.ipo_watchlist.length === 0) {
+      ipoList.innerHTML = `<div class="empty">No IPOs currently tracked. Add entries to IPO_WATCHLIST in the script.</div>`;
+    } else {
+      data.ipo_watchlist.forEach(ipo => {
+        const div = document.createElement("div");
+        div.className = "ipo-item";
+        div.innerHTML = `
+          <div class="ipo-name">${ipo.name}</div>
+          <div class="ipo-detail mono">${ipo.expected_date || "TBD"} · ₹${ipo.price_band || "—"}</div>
+        `;
+        ipoList.appendChild(div);
+      });
+    }
+  }
+
+  async function loadData() {
+    const banner = document.getElementById("statusBanner");
+    try {
+      const res = await fetch("./data.json", { cache: "no-store" });
+      if (!res.ok) throw new Error("no data.json yet");
+      const data = await res.json();
+      render(data);
+      banner.style.display = "none";
+    } catch (e) {
+      banner.style.display = "block";
+      banner.textContent = "Showing sample data — data.json not found yet. Run nse_screener.py (or wait for the next automated run) to populate live data.";
+      render(SAMPLE_DATA);
+    }
+  }
+
+  loadData();
+  // Re-check for fresh data every 5 minutes while the page is open.
+  setInterval(loadData, 5 * 60 * 1000);
+</script>
+
+</body>
+</html>
