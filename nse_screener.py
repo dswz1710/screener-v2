@@ -63,7 +63,8 @@ IPO_WATCHLIST = [
     # {"name": "Example Co", "expected_date": "2026-09-15", "price_band": "180-190", "notes": "SME/Mainboard"},
 ]
 
-OUTPUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results")
+_base_dir = os.path.dirname(os.path.abspath(__file__))
+OUTPUT_DIR = os.path.join(_base_dir, "results")
 TOP_N = 10
 
 # Free public RSS feeds - no API key needed. Add/remove sources as you like.
