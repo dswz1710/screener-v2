@@ -1,0 +1,48 @@
+# Save this file as: .github/workflows/screener.yml  (in your repo root)
+#
+# Runs the screener automatically every weekday at 9:15 AM IST, then commits
+# the updated results/data.json back to the repo. Your GitHub Pages site
+# reads that file, so the webpage updates itself with no server needed.
+
+name: Daily NSE Screener
+
+on:
+  schedule:
+    # Cron is in UTC. 9:15 AM IST = 3:45 AM UTC. Runs Mon-Fri.
+    - cron: "45 3 * * 1-5"
+  workflow_dispatch: {}   # lets you also trigger it manually from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  run-screener:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install yfinance pandas numpy feedparser
+
+      - name: Run screener
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SCREENER_EMAIL_ADDRESS: ${{ secrets.SCREENER_EMAIL_ADDRESS }}
+          SCREENER_EMAIL_APP_PASSWORD: ${{ secrets.SCREENER_EMAIL_APP_PASSWORD }}
+          SCREENER_EMAIL_TO: ${{ secrets.SCREENER_EMAIL_TO }}
+        run: python nse_screener.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "screener-bot"
+          git config user.email "actions@github.com"
+          git add results/data.json results/*.csv results/*.log docs/data.json
+          git diff --staged --quiet || git commit -m "Auto-update screener data $(date -u +%Y-%m-%d)"
+          git push
