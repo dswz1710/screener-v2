@@ -1,0 +1,21 @@
+2026-11-12 11:52:12,653 | INFO | Starting NSE screener run for 2026-11-12 on 20 stocks
+2026-11-12 11:52:23,342 | INFO | Full results saved to /home/runner/work/screener-v2/screener-v2/results/screener_2026-11-12.csv
+2026-11-12 11:52:23,343 | INFO | Dashboard data written to /home/runner/work/screener-v2/screener-v2/results/data.json
+2026-11-12 11:52:23,344 | INFO | Live site data written to /home/runner/work/screener-v2/screener-v2/docs/data.json
+2026-11-12 11:52:23,344 | INFO | No stocks crossed the alert threshold (75.0) today.
+2026-11-12 11:52:23,344 | INFO | 
+======================================================================
+TOP 10 BY SCORE - 2026-11-12
+======================================================================
+2026-11-12 11:52:23,345 | INFO | WIPRO LTD            (WIPRO.NS       ) | Score:  70.03 | P/E:   15.4 | P/B:  2.44 | ROE: 0.15939 | 1M mom:  21.26% | From 52wH: -25.46%
+2026-11-12 11:52:23,345 | INFO | INFOSYS LIMITED      (INFY.NS        ) | Score:  69.15 | P/E:   15.3 | P/B:  4.78 | ROE: 0.29951 | 1M mom:  15.45% | From 52wH: -30.38%
+2026-11-12 11:52:23,345 | INFO | TATA CONSULTANCY SERV LT (TCS.NS         ) | Score:  68.10 | P/E:   17.1 | P/B:  7.43 | ROE: 0.45573002 | 1M mom:  15.55% | From 52wH: -25.30%
+2026-11-12 11:52:23,345 | INFO | ICICI BANK LTD.      (ICICIBANK.NS   ) | Score:  67.64 | P/E:   19.5 | P/B:  2.92 | ROE: 0.1649 | 1M mom:  18.66% | From 52wH:  -1.61%
+2026-11-12 11:52:23,345 | INFO | STATE BANK OF INDIA  (SBIN.NS        ) | Score:  67.02 | P/E:   11.1 | P/B:  1.49 | ROE: 0.14671999 | 1M mom:  15.46% | From 52wH: -10.42%
+2026-11-12 11:52:23,345 | INFO | ITC LTD              (ITC.NS         ) | Score:  66.75 | P/E:   18.8 | P/B:  4.99 | ROE: 0.26790002 | 1M mom:  10.14% | From 52wH: -27.69%
+2026-11-12 11:52:23,345 | INFO | HDFC BANK LTD        (HDFCBANK.NS    ) | Score:  59.05 | P/E:   17.8 | P/B:  2.06 | ROE: 0.11005 | 1M mom:  15.24% | From 52wH: -18.85%
+2026-11-12 11:52:23,345 | INFO | NTPC LTD             (NTPC.NS        ) | Score:  57.57 | P/E:   10.5 | P/B:  1.47 | ROE: 0.14458 | 1M mom:   5.19% | From 52wH: -20.46%
+2026-11-12 11:52:23,346 | INFO | ULTRATECH CEMENT LIMITED (ULTRACEMCO.NS  ) | Score:  57.49 | P/E:   41.3 | P/B:  4.93 | ROE: 0.114980005 | 1M mom:  17.27% | From 52wH:  -3.98%
+2026-11-12 11:52:23,346 | INFO | KOTAK MAHINDRA BANK LTD (KOTAKBANK.NS   ) | Score:  57.37 | P/E:   22.7 | P/B:  2.50 | ROE: 0.11835 | 1M mom:  10.60% | From 52wH:  -0.74%
+2026-11-12 11:52:23,346 | INFO | 
+Disclaimer: Educational/research tool only, not investment advice. Verify all data independently before trading.
