@@ -1,0 +1,22 @@
+2026-11-19 12:10:33,372 | INFO | Starting NSE screener run for 2026-11-19 on 20 stocks
+2026-11-19 12:10:40,527 | INFO | Full results saved to /home/runner/work/screener-v2/screener-v2/results/screener_2026-11-19.csv
+2026-11-19 12:10:40,528 | INFO | Dashboard data written to /home/runner/work/screener-v2/screener-v2/results/data.json
+2026-11-19 12:10:40,528 | INFO | Live site data written to /home/runner/work/screener-v2/screener-v2/docs/data.json
+2026-11-19 12:10:40,529 | INFO | Telegram not configured (set TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID to enable).
+2026-11-19 12:10:40,529 | INFO | Email not configured (set SCREENER_EMAIL_ADDRESS / SCREENER_EMAIL_APP_PASSWORD to enable).
+2026-11-19 12:10:40,529 | INFO | 
+======================================================================
+TOP 10 BY SCORE - 2026-11-19
+======================================================================
+2026-11-19 12:10:40,530 | INFO | ITC LTD              (ITC.NS         ) | Score:  75.65 | P/E:   20.0 | P/B:  5.29 | ROE: 0.26790002 | 1M mom:  15.41% | From 52wH: -22.91%
+2026-11-19 12:10:40,530 | INFO | STATE BANK OF INDIA  (SBIN.NS        ) | Score:  73.47 | P/E:   11.8 | P/B:  1.59 | ROE: 0.14671999 | 1M mom:  18.72% | From 52wH:  -4.69%
+2026-11-19 12:10:40,530 | INFO | ICICI BANK LTD.      (ICICIBANK.NS   ) | Score:  68.42 | P/E:   19.8 | P/B:  2.96 | ROE: 0.1649 | 1M mom:  16.50% | From 52wH:  -0.44%
+2026-11-19 12:10:40,530 | INFO | NTPC LTD             (NTPC.NS        ) | Score:  65.01 | P/E:   10.6 | P/B:  1.48 | ROE: 0.14458 | 1M mom:   6.18% | From 52wH: -19.97%
+2026-11-19 12:10:40,530 | INFO | AXIS BANK LIMITED    (AXISBANK.NS    ) | Score:  64.94 | P/E:   14.4 | P/B:  1.86 | ROE: 0.13885 | 1M mom:  11.72% | From 52wH:  -2.57%
+2026-11-19 12:10:40,530 | INFO | INFOSYS LIMITED      (INFY.NS        ) | Score:  64.39 | P/E:   14.5 | P/B:  4.54 | ROE: 0.29951 | 1M mom:  -1.22% | From 52wH: -33.97%
+2026-11-19 12:10:40,530 | INFO | HDFC BANK LTD        (HDFCBANK.NS    ) | Score:  62.97 | P/E:   18.0 | P/B:  2.08 | ROE: 0.11005 | 1M mom:  15.42% | From 52wH: -17.90%
+2026-11-19 12:10:40,530 | INFO | KOTAK MAHINDRA BANK LTD (KOTAKBANK.NS   ) | Score:  62.50 | P/E:   23.3 | P/B:  2.57 | ROE: 0.11835 | 1M mom:  13.72% | From 52wH:  -0.01%
+2026-11-19 12:10:40,530 | INFO | WIPRO LTD            (WIPRO.NS       ) | Score:  61.54 | P/E:   14.4 | P/B:  2.29 | ROE: 0.15939 | 1M mom:   0.98% | From 52wH: -30.12%
+2026-11-19 12:10:40,530 | INFO | TATA CONSULTANCY SERV LT (TCS.NS         ) | Score:  60.57 | P/E:   16.4 | P/B:  7.12 | ROE: 0.45573002 | 1M mom:  -4.80% | From 52wH: -28.35%
+2026-11-19 12:10:40,530 | INFO | 
+Disclaimer: Educational/research tool only, not investment advice. Verify all data independently before trading.
